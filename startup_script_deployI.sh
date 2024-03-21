@@ -13,13 +13,15 @@ ln -s /opt/nodejs/bin/npm /usr/bin/npm
 git clone https://github.com/dluppoli/CalculusMasterV2
 cd CalculusMasterV2
 
+DB_IP=$(curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/db_ip -H "Metadata-Flavor: Google")
+
 # Creazione del file di environment. Personalizzare i valori secondo le necessità 
 cat > .env << EOF
 #Server config
 PORT=80
 
 #Database config
-DB_HOST = __MYSQLSERVER_INSTANCE_IP__
+DB_HOST = $DB_IP
 DB_USER = calculusmaster
 DB_PASSWORD = pigreco
 DB = CalculusMaster

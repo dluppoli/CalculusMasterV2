@@ -1,0 +1,14 @@
+CREATE DATABASE CalculusMaster;
+USE CalculusMaster;
+CREATE TABLE `Users` (
+  Username varchar(100) PRIMARY KEY,
+  Password varchar(128) NOT NULL,
+  Salt char(32) NOT NULL
+);
+
+-- Inserimento utente test/test
+INSERT INTO Users values('test','7A51B7CC7867779709AF65C7D01AACFB28B43FECF46F79E1F19C4024E169B9A335C1398086AD3C2A0913813EB098E59E98D9629DB78739402DA10AD08C064FCF','4A1DBD5124D2FF06740C55EA3EC89F22');
+
+-- Diritti di accesso al database
+CREATE USER 'calculusmaster'@'%' IDENTIFIED BY 'pigreco';
+GRANT ALL PRIVILEGES ON CalculusMaster.* TO 'calculusmaster'@'%';

@@ -193,3 +193,30 @@ npm start
     - creare un nuovo health check
 6. Attendere la creazione del LB e collegarsi all'IP pubblico per verificare la corretta operatività
 
+## Deploy I (semplificato) con Terraform
+1. Caricare il file `startup_script_deployI.sh` in un bucket Cloud Storage esistente o in uno nuovo appositamente creato
+2. Entrare nella cartella `terraform` contenente i file dell'infrastruttura
+3. Editare il file `terraform.tfvars` impostando l'id del progetto GCP e l'indirizzo gs:// del file caricato al punto 1
+4. Eseguire i seguenti comandi terraform
+```sh
+terraform init
+terraform validate
+terraform plan
+terraform apply
+```
+5. Verificare il corretto funzionamento dell'infrastruttura creata
+6. Cancellare l'infrastruttura con `terraform destroy`
+
+## Terraform state su cloud storage
+1. Creare un nuovo bucket Cloud Storage o riutilizzare uno di quelli utilizzati in precedenza
+2. Aggiungere all'infrastruttura terraform in file `backend.tf` con il seguente contenuto, sostituendo BUCKET_NAME con il nome del bucket identificato al punto precedente:
+```
+terraform {
+ backend "gcs" {
+   bucket  = "BUCKET_NAME"
+   prefix  = "terraform/state"
+ }
+}
+```
+3. Eseguire il comando `terraform init` accettando di trasferire lo stato locale sul bucket remoto
+
