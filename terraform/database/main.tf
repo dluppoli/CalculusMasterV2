@@ -10,7 +10,6 @@ resource "google_sql_database_instance" "mysqlcloudserver" {
             authorized_networks {
                 value           = "0.0.0.0/0"
                 name            = "all"
-                expiration_time = timeadd(timestamp(), "1h")
             }
         }
     }
