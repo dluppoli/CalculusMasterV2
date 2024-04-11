@@ -220,3 +220,47 @@ terraform {
 ```
 3. Eseguire il comando `terraform init` accettando di trasferire lo stato locale sul bucket remoto
 
+
+## Deploy N - Container su compute engine
+1. Creare docker file con le seguenti informazioni
+```dockerfile
+FROM node:18-alpine3.18
+RUN mkdir -p /opt/app
+WORKDIR /opt/app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY ./ .
+CMD [ "npm", "start"]
+```
+2. Aggiungere il file .dockerignore per evitare di copiare file non necessari
+```
+.vscode/
+.git/
+.gitignore
+.dockerignore
+.env
+dockerfile
+node_modules/
+terraform*
+startup_script*
+CreateDatabase.sql
+```
+3. Creare l'immagine docker inserendo il riferimento al proprio repository di immagini `docker build -t DOKER_REPO/calculusmaster:n .`
+4. Pubblicare l'immagine sul proprio repositrory docker `docker push DOKER_REPO/calculusmaster:n`
+5. Eseguire deploy terraform contenuto nella cartella terraformContainer, impostando adeguatamente le variabili contenute nel file terraform.tfvars
+```sh
+terraform init
+terraform validate
+terraform plan
+terraform apply
+```
+
+## Deploy O - Container su Cloud Run
+1. Si utilizza la stessa immagine creata nel deploy N
+2. Eseguire deploy terraform contenuto nella cartella terraformCloudRun, impostando adeguatamente le variabili contenute nel file terraform.tfvars
+```sh
+terraform init
+terraform validate
+terraform plan
+terraform apply
+```
