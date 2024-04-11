@@ -1,0 +1,11 @@
+.vscode/
+.git/
+.gitignore
+.dockerignore
+.env
+dockerfile
+node_modules/
+terraform*
+startup_script*
+CreateDatabase.sql
+
