@@ -1,0 +1,31 @@
+version: "3.0"
+services:
+  mysql:
+    image: mysql
+    env_file:
+      - .env.mysql
+    networks:
+      - calcmastnetwork
+    volumes:
+      - mysqlvolume:/var/lib/mysql 
+  calcmaster:
+    image: dluppoli/calculusmaster:2.0
+    env_file:
+      - .env.calcmaster
+    ports:
+      - 4040:4000
+    networks:
+      - calcmastnetwork
+    depends_on:
+      - mysql
+
+networks:
+  calcmastnetwork:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
+
+volumes:
+  mysqlvolume:
+
