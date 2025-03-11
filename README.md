@@ -17,7 +17,6 @@ Applicazione demo per laboratori di deploy su Google Cloud Platform.
     - 10 GB Persistent Disk
     - Debian 12 operating system
     - HTTP & HTTPS traffic NOT allowed
-    - Nessun IP Pubblico (Esterno)
 2. Collegarsi alla VM mysqlserver via SSH
 3. Eseguire i seguenti comandi per l'installazione di MySql (Rif. https://cloud.google.com/compute/docs/instances/sql-server/setup-mysql)
 ```sh
@@ -45,8 +44,9 @@ sudo apt-get -y install mysql-community-server
 ```sh
 sudo mysql -u root -p < CreateDatabase.sql
 ```
-6. Collegarsi alla VM appserver via SSH
-7. Eseguire i seguenti comandi:
+6. Modificare la configurazione della VM rimuovendo l'IP pubblico (external). Riavviare.
+7. Collegarsi alla VM appserver via SSH
+8. Eseguire i seguenti comandi:
 ```sh
 # Clonazione repository CalculusMaster Versione 2
 cd /appdata
@@ -72,7 +72,7 @@ EOF
 npm install
 sudo npm start
 ```
-8. Collegarsi all'ip pubblico della VM e verificare il corretto funzionamento
+9. Collegarsi all'ip pubblico della VM e verificare il corretto funzionamento
 
 ## Deploy E - Passaggio a Cloud SQL
 Creazione istanza Cloud SQL
