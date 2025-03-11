@@ -17,6 +17,7 @@ Applicazione demo per laboratori di deploy su Google Cloud Platform.
     - 10 GB Persistent Disk
     - Debian 12 operating system
     - HTTP & HTTPS traffic NOT allowed
+    - Nessun IP Pubblico (Esterno)
 2. Collegarsi alla VM mysqlserver via SSH
 3. Eseguire i seguenti comandi per l'installazione di MySql (Rif. https://cloud.google.com/compute/docs/instances/sql-server/setup-mysql)
 ```sh
