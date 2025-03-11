@@ -1,4 +1,4 @@
-# Laboratorio di piattaforme e metodologie cloud - AA 2023-24
+# Laboratorio di piattaforme e metodologie cloud - AA 2024-25
 Applicazione demo per laboratori di deploy su Google Cloud Platform.
 
 |Versione App|Lezione di riferimento|
@@ -267,7 +267,7 @@ terraform apply
 
 ## Deploy P - Aggiunta di un sistema CI/CD al deploy O
 Con il deploy O operativo eseguire i seguenti passi:
-1. Creare un repository chiamato CalculusMasterV2 su Cloud Source Repositories. Prendere nota dell'indirizzo del repository, che dovrebbe essere simile a `https://source.developers.google.com/p/unibocloud2024-422006/r/CalculusMasterV2`
+1. Creare un repository chiamato CalculusMasterV2 su Cloud Source Repositories. Prendere nota dell'indirizzo del repository, che dovrebbe essere simile a `https://source.developers.google.com/p/unibocloud2025-422006/r/CalculusMasterV2`
 2. Caricare il codice di CalculusMaster sul nuovo repository:
 ```sh
 #Clonare il repository di CalculusMasterV3 (se non già fatto in precedenza). Utilizzare CloudShell per comodità nelle autorizzazioni
@@ -278,7 +278,7 @@ cd CalculusMasterV2
 git config --global credential.https://source.developers.google.com.helper gcloud.sh
 
 # Aggiungere il nuovo repository remoto ed effettuare il push
-git remote add google https://source.developers.google.com/p/unibocloud2024-422006/r/CalculusMasterV2
+git remote add google https://source.developers.google.com/p/unibocloud2025-422006/r/CalculusMasterV2
 git push --all google
 ```
 3. Creare il seguente file cloudbuild.yaml
