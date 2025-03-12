@@ -106,14 +106,15 @@ Collegamento istanza appserver con istanza Cloud SQL
     - Location: us-central1
     - Storage class: Standard
     - Uncheck "Enforce public access prevention on this bucket"
-2. Effettuare l'upload sul bucket del file bg.jpg (nella cartella assets/img)
+2. Aggiungere una nuova permission aggiungendo il principal allUsers con il ruolo di Storage Object Viewer 
+3. Effettuare l'upload sul bucket del file bg.jpg (nella cartella assets/img)
     - Usando cloud console
     - Usando cloud shell con il comando `gsutil cp bg.jpg gs://calculusmasterdataXX`
-3. Collegarsi in SSH all'istanza appserver
-4. Modificare il file style.css (nella cartella assets/css) con `nano style.css`
+4. Collegarsi in SSH all'istanza appserver
+5. Modificare il file style.css (nella cartella assets/css) con `nano style.css`
     - Sostituire '../img/bg.jpg' con 'https://storage.cloud.google.com/calculusmasterdataXX/bg.jpg' (sono presenti due occorrenze)
-5. Cancellare il file locale bg.img dalla cartella /assets/img
-6. Testare il corretto funzionamento con `npm start`
+6. Cancellare il file locale bg.img dalla cartella /assets/img
+7. Testare il corretto funzionamento con `npm start`
 
 ## Deploy H - Scalabilità orizzontale tramite MIG
 1. (se necessario) Creare l'istanza Cloud SQL come previsto dal deploy E
@@ -125,8 +126,7 @@ Collegamento istanza appserver con istanza Cloud SQL
     - Location type: regional
     - Location: us-central1
     - Storage class: Standard
-3. Aggiungere una nuova permission aggiungendo il principal allUsers con il ruolo di Storage Object Viewer 
-4. Caricare sul bucket il file startup_script_deployH.sh tramite `gsutil cp startup_script_deployH.sh gs://calculusmasterdeploybucketXX`. Lo script deve contenere i seguenti passi (estratti dai deploy precedenti, con la rimozione del comando sudo) ed è recuperabile anche da https://raw.githubusercontent.com/dluppoli/CalculusMasterV2/main/startup_script_deployH.sh. Modificare opportunamente i parametri di connessione a Cloud SQL
+3. Caricare sul bucket il file startup_script_deployH.sh tramite `gsutil cp startup_script_deployH.sh gs://calculusmasterdeploybucketXX`. Lo script deve contenere i seguenti passi (estratti dai deploy precedenti, con la rimozione del comando sudo) ed è recuperabile anche da https://raw.githubusercontent.com/dluppoli/CalculusMasterV2/main/startup_script_deployH.sh. Modificare opportunamente i parametri di connessione a Cloud SQL
 ```sh
 # Aggiornamento repository
 apt-get update
