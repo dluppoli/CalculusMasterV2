@@ -125,7 +125,8 @@ Collegamento istanza appserver con istanza Cloud SQL
     - Location type: regional
     - Location: us-central1
     - Storage class: Standard
-3. Caricare sul bucket il file startup_script_deployH.sh tramite `gsutil cp startup_script_deployH.sh gs://calculusmasterdeploybucketXX`. Lo script deve contenere i seguenti passi (estratti dai deploy precedenti, con la rimozione del comando sudo) ed è recuperabile anche da https://raw.githubusercontent.com/dluppoli/CalculusMasterV2/main/startup_script_deployH.sh. Modificare opportunamente i parametri di connessione a Cloud SQL
+3. Aggiungere una nuova permission aggiungendo il principal allUsers con il ruolo di Storage Object Viewer 
+4. Caricare sul bucket il file startup_script_deployH.sh tramite `gsutil cp startup_script_deployH.sh gs://calculusmasterdeploybucketXX`. Lo script deve contenere i seguenti passi (estratti dai deploy precedenti, con la rimozione del comando sudo) ed è recuperabile anche da https://raw.githubusercontent.com/dluppoli/CalculusMasterV2/main/startup_script_deployH.sh. Modificare opportunamente i parametri di connessione a Cloud SQL
 ```sh
 # Aggiornamento repository
 apt-get update
