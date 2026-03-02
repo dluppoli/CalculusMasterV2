@@ -14,7 +14,7 @@ services:
     env_file:
       - .env.calcmaster
     ports:
-      - 4040:4000
+      - 4000:4000
     networks:
       - calcmastnetwork
     depends_on:
