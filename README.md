@@ -1,4 +1,4 @@
-# Laboratorio di piattaforme e metodologie cloud - AA 2024-25
+# Laboratorio di piattaforme e metodologie cloud - AA 2025-26
 Applicazione demo per laboratori di deploy su Google Cloud Platform.
 
 |Versione App|Lezione di riferimento|
@@ -25,12 +25,12 @@ sudo apt-get update
 sudo apt-get install -y wget
 
 # Download MySql e verifica hash MD5
-export DEB_FILE=mysql-apt-config_0.8.29-1_all.deb
+export DEB_FILE=mysql-apt-config_0.8.36-1_all.deb
 cd /tmp
 curl -L --output ${DEB_FILE} https://dev.mysql.com/get/${DEB_FILE}
 
 cat > ${DEB_FILE}.md5 << EOL
-f732dd7d61d18dd67877c820d690756d ${DEB_FILE}
+9698a5d5980c16b79673318330607993 ${DEB_FILE}
 EOL
 md5sum --check ${DEB_FILE}.md5
 
