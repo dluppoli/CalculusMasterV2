@@ -102,6 +102,11 @@ Collegamento istanza appserver con istanza Cloud SQL
 1. Collegarsi alla VM app server in ssh
 2. Modificare il file .env di CalculusMasterV2 inserendo l'indirizzo IP pubblico dell'istanza Cloud SQL
 
+Collegamento a Cloud SQL via IP Privato
+1. Modificare la configurazione di Cloud SQL rimuovendo l'IP Pubblico e configurando un IP Privato via Private Service Access (PSA)
+2. Rimuovere l'authorized network inserita in precedenza
+3. Modificare il file .env della vm appserver inserendo l'IP privato generato al punto precedente
+
 ## Deploy F - Aggiunta Cloud Storage
 1. Creare un nuovo Cloud Storage Bucket con i seguenti parametri
     - name: calculusmasterdataXX (sostituendo XX con numeri/lettere a caso. Il nome del bucket deve essere globalmente univoco)
