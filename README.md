@@ -69,7 +69,7 @@ SESSION_SECRET = SLKSADJFOIDSACUNQWEN
 EOF
 
 # Esecuzione applicazione
-npm install
+sudo npm install
 sudo npm start
 ```
 9. Collegarsi all'ip pubblico della VM e verificare il corretto funzionamento
@@ -79,7 +79,10 @@ Creazione istanza Cloud SQL
 1. Avviare la procedura di creazione istanza Cloud SQL
 2. Selezionare MySql e configurarlo in questo modo:
     - name: mysqlcloudserver
-    - password: pigreco
+    - Database Version: MySQL 5.7
+    - password: <<GENERAZIONE AUTOMATICA>>
+    - Eliminare la password policy
+    - Abilitare il traffico non cifrato
     - Edition: enterprise
     - Preset: sandbox
     - Region: us-central1 (single zone)
