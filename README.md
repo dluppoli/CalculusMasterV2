@@ -129,6 +129,7 @@ Collegamento a Cloud SQL via IP Privato
     - Aggiungendo anche un ip privato, selezionando la relativa opzione nella sezione Connections
         - Selezionare la default network e attivare il private service access (abilitando la relativa API e lasciando a Google assegnare un IP)
     - Evitando di compiere il passo 8 in quanto non sono noti gli indirizzi IP delle istanze create dal MIG
+    - In alternativa è possibile creare una macchina virtuale con database MySql, come previsto nel deploy D
 2. Creare un nuovo Cloud Storage Bucket con i seguenti parametri
     - name: calculusmasterdeploybucketXX (sostituendo XX con numeri/lettere a caso. Il nome del bucket deve essere globalmente univoco)
     - Location type: regional
