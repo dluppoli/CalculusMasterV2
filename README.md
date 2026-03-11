@@ -135,57 +135,24 @@ Collegamento a Cloud SQL via IP Privato
     - Location type: regional
     - Location: us-central1
     - Storage class: Standard
-3. Caricare sul bucket il file startup_script_deployH.sh tramite `gsutil cp startup_script_deployH.sh gs://calculusmasterdeploybucketXX`. Lo script deve contenere i seguenti passi (estratti dai deploy precedenti, con la rimozione del comando sudo) ed è recuperabile anche da https://raw.githubusercontent.com/dluppoli/CalculusMasterV2/main/startup_script_deployH.sh. Modificare opportunamente i parametri di connessione a Cloud SQL
-```sh
-# Aggiornamento repository
-apt-get update
-# Installazione git
-apt-get install -yq git
-
-# Installazione node.js (estratto da https://cloud.google.com/nodejs/getting-started/getting-started-on-compute-engine?hl=it)
-mkdir /opt/nodejs
-curl https://nodejs.org/dist/v20.11.0/node-v20.11.0-linux-x64.tar.gz | tar xvzf - -C /opt/nodejs --strip-components=1
-ln -s /opt/nodejs/bin/node /usr/bin/node
-ln -s /opt/nodejs/bin/npm /usr/bin/npm
-
-# Clonazione repository CalculusMaster Versione 2
-git clone https://github.com/dluppoli/CalculusMasterV2
-cd CalculusMasterV2
-
-# Creazione del file di environment. Personalizzare i valori secondo le necessità 
-cat > .env << EOF
-#Server config
-PORT=80
-
-#Database config
-DB_HOST = __MYSQLSERVER_INSTANCE_IP__
-DB_USER = calculusmaster
-DB_PASSWORD = pigreco
-DB = CalculusMaster
-
-#Auth Config
-SESSION_SECRET = SLKSADJFOIDSACUNQWEN
-EOF
-
-# Esecuzione applicazione
-npm install
-npm start
-```
+3. Caricare sul bucket il file startup_script_deployH.sh tramite `gsutil cp startup_script_deployH.sh gs://calculusmasterdeploybucketXX`. 
 4. Configurare una instance template con la seguente configurazione:
     - appservertemplate as instance name
     - Regional in us-central1
     - e2-micro Instance
     - Spot provisioning model
     - 10 GB Persistent Disk
-    - Debian 12 operating system
+    - **Debian 13** operating system
     - HTTP & HTTPS traffic allowed
-    - Nella sezione Advanced Options > Management > Metadata aggiungere il metadato di key = startup-script-url e value = gs://calculusmasterdeploybucketXX/startup_script_deployH.sh
+    - Nella sezione Advanced Options > Management > Metadata aggiungere i seguenti metadata
+        - startup-script-url = gs://calculusmasterdeploybucketXX/startup_script_deployH.sh
+        - db_ip = INDIRIZZO IP DEL SERVER DATABASE MYSQL (Macchina Virtuale o Cloud SQL)
+    - (opzionale) Creare manualmente una VM a partire dal template per verificare il corretto funzionamento
 5. Creare un Managed Instance Group con i seguenti parametri
     - appservermig as name
     - appservertemplate as instance template
     - multiple zone, scegliento region us-central1
-    - Settare a 2 il numero minimo di istanze
-    - Settare a 4 il numero minimo di istanze
+    - Settare a 2 il numero istanze
 6. Verificare il corretto funzionamento:
     - constatando che sono state create due istanze
     - constatando che CalculusMaster risponde ad entrambi gli indirizzi IP
@@ -205,7 +172,7 @@ npm start
 6. Attendere la creazione del LB e collegarsi all'IP pubblico per verificare la corretta operatività
 
 ## Deploy I (semplificato) con Terraform
-1. Caricare il file `startup_script_deployI.sh` in un bucket Cloud Storage esistente o in uno nuovo appositamente creato
+1. Caricare il file `startup_script_deployH.sh` in un bucket Cloud Storage esistente o in uno nuovo appositamente creato
 2. Entrare nella cartella `terraform` contenente i file dell'infrastruttura
 3. Editare il file `terraform.tfvars` impostando l'id del progetto GCP e l'indirizzo gs:// del file caricato al punto 1
 4. Eseguire i seguenti comandi terraform
