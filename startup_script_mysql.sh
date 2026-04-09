@@ -1,8 +1,9 @@
+sleep 30
 sudo apt-get update
 sudo apt-get install -y wget
 
 export DEBIAN_FRONTEND=noninteractive
-export DEB_FILE=mysql-apt-config_0.8.29-1_all.deb
+export DEB_FILE=mysql-apt-config_0.8.36-1_all.deb
 cd /tmp
 curl -L --output ${DEB_FILE} https://dev.mysql.com/get/${DEB_FILE}
 
