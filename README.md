@@ -245,21 +245,8 @@ terraform apply
 
 ## Deploy P - Aggiunta di un sistema CI/CD al deploy O
 Con il deploy O operativo eseguire i seguenti passi:
-1. Creare un repository chiamato CalculusMasterV2 su Cloud Source Repositories. Prendere nota dell'indirizzo del repository, che dovrebbe essere simile a `https://source.developers.google.com/p/unibocloud2025-422006/r/CalculusMasterV2`
-2. Caricare il codice di CalculusMaster sul nuovo repository:
-```sh
-#Clonare il repository di CalculusMasterV3 (se non già fatto in precedenza). Utilizzare CloudShell per comodità nelle autorizzazioni
-git clone https://github.com/dluppoli/CalculusMasterV2
-cd CalculusMasterV2
-
-# Autenticare cloud shell verso il nuovo repo
-git config --global credential.https://source.developers.google.com.helper gcloud.sh
-
-# Aggiungere il nuovo repository remoto ed effettuare il push
-git remote add google https://source.developers.google.com/p/unibocloud2025-422006/r/CalculusMasterV2
-git push --all google
-```
-3. Creare il seguente file cloudbuild.yaml
+1. Clonare (o fare fork) del repository CalculusMasterV2 su un proprio account github, in modo da avere i diritti di effettuare push di modifiche.
+2. Creare il seguente file cloudbuild.yaml (già presente nel repository)
 ```yaml
 steps:
   - name: "gcr.io/cloud-builders/docker"
@@ -284,11 +271,11 @@ steps:
         "--allow-unauthenticated",
       ]
 ```
-4. Creare un Cloud Build, avviato (trigger) dai push sul repository precedentemente creato. Configurare la variabile d'ambiente _SERVICE_NAME al nome del servizio cloud run creato al deploy O
-5. Effettuare il push di cloudbuild.yaml e verificare il corretto funzionamento del deploy
+3. Creare un Cloud Build, avviato (trigger) dai push sul repository precedentemente creato (verrà chiesto di effettuare l'autenticazione presso il proprio github). Configurare la variabile d'ambiente _SERVICE_NAME al nome del servizio cloud run creato al deploy O
+4. Effettuare il push di cloudbuild.yaml e verificare il corretto funzionamento del deploy
 ```sh
 git add cloudbuild.yaml
 git commit -m "aggiunta cloud build"
 git push google
 ```
-6. (Opzionalmente) Apportare modifiche al codice, effettuare il push e verificare il corretto aggiornamento del servizio cloud run
+5. (Opzionalmente) Apportare modifiche al codice, effettuare il push e verificare il corretto aggiornamento del servizio cloud run
